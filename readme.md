@@ -2,6 +2,8 @@
 
 A new tab page for students. Set it as your browser's new tab and start working.
 
+![StudyDesk Preview](website_preview.png)
+
 ## features
 
 ### focus mode
