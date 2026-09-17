@@ -99,4 +99,4 @@ The output goes to the `dist/` folder.
 
 ## live site
 
-[https://muhammad-bin-junaid.github.io/study/](https://muhammad-bin-junaid.github.io/study/)
+[https://muhammad-bin-junaid.github.io/study/](https://studydesk-newtab.vercel.app/)
