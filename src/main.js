@@ -1,3 +1,5 @@
+import './style.css';
+
 const WEATHER_API = import.meta.env.VITE_WEATHER_API;
 const DICT_API = import.meta.env.VITE_DICT_API;
 
