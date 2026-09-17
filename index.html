@@ -3,60 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudyDesk</title>
+<title>StudyDesk - student workspace</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236c8cff' rx='18' width='100' height='100'/><text x='50' y='68' font-family='monospace' font-size='48' font-weight='bold' fill='%23ffffff' text-anchor='middle'>SD</text></svg>">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#0e1018;color:#c8cdd8;font-family:Arial,sans-serif;overflow-x:hidden}
-.app{position:relative;z-index:1;width:min(1050px,calc(100% - 40px));margin:auto;padding:20px 0 60px}
-.header{display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:monospace;font-size:28px;font-weight:700;color:#6c8cff;letter-spacing:-1px}
-.settings-btn{border:1px solid #2a3040;background:#161a25;color:#6a7080;padding:6px 10px;border-radius:3px;font-size:11px}
-.greeting-section{text-align:center;padding:30px 20px 10px}
-.greeting-text{font-size:36px;font-weight:700;letter-spacing:-1px;margin-bottom:12px}
-.date-display{display:flex;flex-direction:column;align-items:center;line-height:1;margin-bottom:10px}
-.date-day{font-size:12px;color:#6c8cff;font-weight:700;letter-spacing:2px}
-.date-num{font-size:52px;font-weight:700;letter-spacing:-3px;line-height:0.9}
-.date-month{font-size:12px;color:#6a7080;letter-spacing:2px;margin-top:2px}
-.greeting-sub{color:#6a7080;font-size:13px}
-.main-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
-.grid-left,.grid-right{display:flex;flex-direction:column;gap:12px}
-.section-heading{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:8px}
-.eyebrow{color:#6c8cff;font-size:9px;text-transform:uppercase;margin-bottom:4px}
-.notes-section{padding:10px;border:1px solid #2a3040;background:#161a25}
-#notesArea{width:100%;min-height:90px;border:1px solid #2a3040;outline:0;background:#0e1018;color:#c8cdd8;padding:7px;font-size:11px;font-family:Arial,sans-serif;resize:vertical}
-#notesArea::placeholder{color:#444}
-#clearNotesBtn{border:1px solid #2a3040;background:#1c2030;color:#6a7080;padding:3px 7px;font-size:9px}
-#clearNotesBtn:hover{color:#ff6b6b}
-.weather-section{padding:10px;border:1px solid #2a3040;background:#161a25}
-.weather-input{display:flex;gap:3px;margin-bottom:5px}
-.weather-input input{flex:1;border:1px solid #2a3040;outline:0;background:#0e1018;color:#c8cdd8;padding:4px 6px;font-size:10px}
-.weather-input button{border:0;background:#6c8cff;color:#fff;padding:4px 8px;font-size:9px;font-weight:700}
-#weatherBox{color:#6a7080;font-size:11px}
-#weatherBox strong{color:#c8cdd8;font-size:15px}
-.hidden{display:none!important}
-</style>
 </head>
 <body>
 <main class="app">
 <header class="header">
-<div></div>
-<a href="#" class="logo">StudyDesk</a>
+<button class="settings-btn" id="settingsBtn">Settings</button>
+<a href="#" class="logo" id="homeBtn">StudyDesk</a>
 <div style="width:60px"></div>
 </header>
-
-<div class="greeting-section">
-<p class="greeting-text">Welcome.</p>
+<div class="url-bar">
+<form id="searchForm">
+<span class="url-icon">&#128269;</span>
+<input type="text" id="searchInput" placeholder="Search or enter URL..." autocomplete="off">
+<button type="submit">&#8594;</button>
+</form>
+</div>
+<div class="browser-tabs" id="browserTabs">
+<button class="browser-tab active" data-tab="home"><span>Home</span></button>
+<button class="new-tab-btn" id="newTabBtn">+</button>
+</div>
+<div class="page active-page" id="homePage">
+<section class="greeting-section">
+<p class="greeting-text" id="greetingText">Good morning.</p>
 <div class="date-display">
 <span class="date-day" id="dateDay">THU</span>
 <span class="date-num" id="dateNum">17</span>
 <span class="date-month" id="dateMonth">SEPTEMBER 2026</span>
 </div>
-<p class="greeting-sub">Your study workspace</p>
+<p class="greeting-sub">Ready to get some work done?</p>
+</section>
+<section class="focus-section" id="focusSection">
+<div class="focus-step" id="focusStep1">
+<h2 class="focus-question">What are you working on?</h2>
+<input type="text" id="focusTopic" class="focus-input" placeholder="e.g. Math - Quadratic Equations">
+<button class="focus-next-btn" id="focusNext1">Next &#8594;</button>
 </div>
-
+<div class="focus-step hidden" id="focusStep2">
+<h2 class="focus-question">How long?</h2>
+<div class="focus-duration">
+<div class="duration-box"><input type="number" id="focusHours" value="1" min="0" max="12"><span>hours</span></div>
+<div class="duration-box"><input type="number" id="focusMins" value="30" min="0" max="59"><span>minutes</span></div>
+</div>
+<button class="focus-next-btn" id="focusNext2">Next &#8594;</button>
+</div>
+<div class="focus-step hidden" id="focusStep3">
+<h2 class="focus-question">Breaks?</h2>
+<div class="focus-breaks">
+<button class="break-btn active" id="breakYes">YES</button>
+<button class="break-btn" id="breakNo">NO</button>
+</div>
+<button class="focus-next-btn" id="focusNext3">Next &#8594;</button>
+</div>
+<div class="focus-step hidden" id="focusStep4">
+<h2 class="focus-question">Pick a reward</h2>
+<div class="focus-rewards">
+<div class="reward-card active" data-reward="youtube">
+<div class="reward-icon">&#9654;</div>
+<strong>Entertainment</strong>
+<span>YouTube</span>
+</div>
+<div class="reward-card" data-reward="gaming">
+<div class="reward-icon">&#127918;</div>
+<strong>Gaming</strong>
+<span>Roblox</span>
+</div>
+</div>
+<button class="start-focus-btn" id="startFocusBtn">START FOCUS</button>
+</div>
+<div class="focus-active hidden" id="focusActive">
+<div class="focus-topic-display" id="focusTopicDisplay"></div>
+<div class="focus-timer" id="focusTimer">00:00</div>
+<div class="focus-progress"><div class="focus-progress-bar" id="focusProgressBar"></div></div>
+<button class="stop-focus-btn" id="stopFocusBtn">STOP</button>
+</div>
+</section>
 <div class="main-grid">
 <div class="grid-left">
+<section class="links-section">
+<div class="section-heading"><p class="eyebrow">Bookmarks</p><button id="addLinkBtn">+</button></div>
+<div class="quick-links" id="quickLinks">
+<a class="link-card" href="#" target="_self"><div class="link-icon">WK</div><strong>Wikipedia</strong></a>
+<a class="link-card" href="#" target="_self"><div class="link-icon">GS</div><strong>Scholar</strong></a>
+</div>
+</section>
 <section class="notes-section">
 <div class="section-heading">
 <p class="eyebrow">Quick Notes</p>
@@ -66,13 +97,54 @@ body{min-height:100vh;background:#0e1018;color:#c8cdd8;font-family:Arial,sans-se
 </section>
 </div>
 <div class="grid-right">
+<section class="productivity-section">
+<div class="section-heading">
+<p class="eyebrow">Assignments</p>
+<span id="taskCount">0 / 0</span>
+</div>
+<div class="task-input"><input type="text" id="taskInput" placeholder="Add assignment..."><button id="addTaskBtn">+</button></div>
+<div class="task-list" id="taskList"></div>
+</section>
 <section class="weather-section">
 <div class="section-heading"><p class="eyebrow">Weather</p></div>
 <div class="weather-input"><input type="text" id="weatherCity" placeholder="city..."><button id="weatherGoBtn">Go</button></div>
 <div id="weatherBox">type a city</div>
 </section>
+<section class="dict-section">
+<div class="section-heading"><p class="eyebrow">Dictionary</p></div>
+<div class="dict-input"><input type="text" id="dictWord" placeholder="lookup a word..."><button id="dictGoBtn">Go</button></div>
+<div id="dictResult"></div>
+</section>
 </div>
 </div>
+<section class="spotify-section">
+<div class="section-heading"><p class="eyebrow">Focus Music</p></div>
+<iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+</section>
+</div>
+<div class="page internal-page" id="internalPage">
+<div class="internal-header">
+<button id="backHomeBtn">&#8592; Home</button>
+<span id="internalTitle">New Tab</span>
+</div>
+<div class="internal-content" id="internalContent"><p>Select an internal tab to continue.</p></div>
+</div>
+<div class="modal hidden" id="linkModal">
+<div class="modal-content">
+<button class="modal-close" id="closeLinkModal">&times;</button>
+<h2>Add bookmark</h2>
+<input type="text" id="linkName" placeholder="Name">
+<input type="url" id="linkUrl" placeholder="https://example.com">
+<button id="saveLinkBtn">Add</button>
+</div>
+</div>
+<aside class="settings-panel hidden" id="settingsPanel">
+<div class="settings-header"><h2>Settings</h2><button id="closeSettingsBtn">&times;</button></div>
+<label for="themeSelect">Theme
+<select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option></select>
+</label>
+</aside>
 </main>
+<script type="module" src="/src/main.js"></script>
 </body>
 </html>
