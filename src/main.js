@@ -1,6 +1,7 @@
 import './style.css';
 
-const WEATHER_API = 'https://geocoding-api.open-meteo.com';
+const GEO_API = 'https://geocoding-api.open-meteo.com';
+const FORECAST_API = 'https://api.open-meteo.com';
 const DICT_API = 'https://en.wiktionary.org/api/rest_v1';
 
 var searchForm=document.getElementById("searchForm"),searchInput=document.getElementById("searchInput"),taskInput=document.getElementById("taskInput"),addTaskBtn=document.getElementById("addTaskBtn"),taskList=document.getElementById("taskList"),taskCount=document.getElementById("taskCount"),settingsBtn=document.getElementById("settingsBtn"),settingsPanel=document.getElementById("settingsPanel"),closeSettingsBtn=document.getElementById("closeSettingsBtn"),themeSelect=document.getElementById("themeSelect"),addLinkBtn=document.getElementById("addLinkBtn"),linkModal=document.getElementById("linkModal"),closeLinkModal=document.getElementById("closeLinkModal"),linkName=document.getElementById("linkName"),linkUrl=document.getElementById("linkUrl"),saveLinkBtn=document.getElementById("saveLinkBtn"),quickLinks=document.getElementById("quickLinks"),browserTabs=document.getElementById("browserTabs"),newTabBtn=document.getElementById("newTabBtn"),homeBtn=document.getElementById("homeBtn"),homePage=document.getElementById("homePage"),internalPage=document.getElementById("internalPage"),backHomeBtn=document.getElementById("backHomeBtn"),internalTitle=document.getElementById("internalTitle"),internalContent=document.getElementById("internalContent")
@@ -157,11 +158,11 @@ clearNotesBtn.addEventListener("click",function(){notesArea.value="";localStorag
 var weatherBox=document.getElementById("weatherBox"),weatherCity=document.getElementById("weatherCity"),weatherGoBtn=document.getElementById("weatherGoBtn")
 function loadWeather(city){
 weatherBox.textContent="loading..."
-fetch(WEATHER_API+"/v1/search?name="+encodeURIComponent(city)+"&count=1")
+fetch(GEO_API+"/v1/search?name="+encodeURIComponent(city)+"&count=1")
 .then(function(r){return r.json()}).then(function(geo){
 if(!geo.results||geo.results.length===0){weatherBox.textContent="City not found.";return}
 var lat=geo.results[0].latitude,lon=geo.results[0].longitude
-return fetch(WEATHER_API+"/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,wind_speed_10m,relative_humidity_2m,weather_code")
+return fetch(FORECAST_API+"/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,wind_speed_10m,relative_humidity_2m,weather_code")
 }).then(function(r){if(r)return r.json()}).then(function(data){
 if(!data||!data.current)return
 var c=data.current
