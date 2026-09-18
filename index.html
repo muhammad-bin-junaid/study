@@ -1,150 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudyDesk - student workspace</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236c8cff' rx='18' width='100' height='100'/><text x='50' y='68' font-family='monospace' font-size='48' font-weight='bold' fill='%23ffffff' text-anchor='middle'>SD</text></svg>">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyDesk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23f59e0b' rx='16' width='100' height='100'/><text x='50' y='66' font-family='monospace' font-size='42' font-weight='bold' fill='%23111827' text-anchor='middle'>SD</text></svg>">
 </head>
 <body>
-<main class="app">
-<header class="header">
-<button class="settings-btn" id="settingsBtn">Settings</button>
-<a href="#" class="logo" id="homeBtn">StudyDesk</a>
-<div style="width:60px"></div>
-</header>
-<div class="url-bar">
-<form id="searchForm">
-<span class="url-icon">&#128269;</span>
-<input type="text" id="searchInput" placeholder="Search or enter URL..." autocomplete="off">
-<button type="submit">&#8594;</button>
-</form>
+<div class="shell">
+
+  <header class="topbar">
+    <span class="brand">StudyDesk</span>
+    <button class="gear-btn" id="settingsBtn">Settings</button>
+  </header>
+
+  <div class="search-wrap">
+    <form id="searchForm">
+      <span class="mag">&#128269;</span>
+      <input type="text" id="searchInput" placeholder="Search or paste a URL..." autocomplete="off">
+      <button type="submit" class="go-btn">Go</button>
+    </form>
+  </div>
+
+  <div class="tab-bar" id="browserTabs">
+    <button class="active" data-tab="home"><span>Home</span></button>
+    <button class="plus-btn" id="newTabBtn">+</button>
+  </div>
+
+  <!-- ===== HOME VIEW ===== -->
+  <div class="view open" id="homePage">
+
+    <div class="hero">
+      <div class="clock" id="liveClock">00:00:00</div>
+      <div class="today-date" id="todayDate">Thursday, 18 September 2026</div>
+      <div class="wave" id="greetingText">Good morning.</div>
+      <div class="subtitle">Let's get some work done.</div>
+    </div>
+
+    <div class="quote-banner">
+      <div class="q-text" id="quoteText">"The secret of getting ahead is getting started."</div>
+      <div class="q-author" id="quoteAuthor">— Mark Twain</div>
+    </div>
+
+    <!-- FOCUS TIMER -->
+    <div class="timer-box" id="focusSection">
+      <div class="focus-step" id="focusStep1">
+        <div class="step-title">What are you working on?</div>
+        <input type="text" id="focusTopic" placeholder="e.g. Physics - Thermodynamics">
+        <button class="next-btn" id="focusNext1">Next &rarr;</button>
+      </div>
+      <div class="focus-step hidden" id="focusStep2">
+        <div class="step-title">How long?</div>
+        <div class="row">
+          <input type="number" id="focusHours" value="1" min="0" max="12">
+          <span>hrs</span>
+          <input type="number" id="focusMins" value="30" min="0" max="59">
+          <span>min</span>
+        </div>
+        <button class="next-btn" id="focusNext2">Next &rarr;</button>
+      </div>
+      <div class="focus-step hidden" id="focusStep3">
+        <div class="step-title">Take breaks?</div>
+        <div class="pill-group">
+          <button class="pill on" id="breakYes">Yes</button>
+          <button class="pill" id="breakNo">No</button>
+        </div>
+        <button class="next-btn" id="focusNext3">Next &rarr;</button>
+      </div>
+      <div class="focus-step hidden" id="focusStep4">
+        <div class="step-title">Pick a reward</div>
+        <div class="reward-cards">
+          <div class="rcard picked" data-reward="youtube">
+            <div class="ri">&#9654;</div>
+            <strong>Entertainment</strong>
+            <span>YouTube</span>
+          </div>
+          <div class="rcard" data-reward="gaming">
+            <div class="ri">&#127918;</div>
+            <strong>Gaming</strong>
+            <span>Roblox</span>
+          </div>
+        </div>
+        <button class="start-btn" id="startFocusBtn">START FOCUS</button>
+      </div>
+      <div class="running-timer hidden" id="focusActive">
+        <div class="topic-label" id="focusTopicDisplay"></div>
+        <div class="big-clock" id="focusTimer">00:00</div>
+        <div class="progress-track"><div class="progress-fill" id="focusProgressBar"></div></div>
+        <button class="stop-btn" id="stopFocusBtn">STOP</button>
+      </div>
+    </div>
+
+    <!-- TWO COLUMNS -->
+    <div class="grid-2">
+      <div class="col">
+
+        <div class="card">
+          <div class="card-head">
+            <span class="label">Bookmarks</span>
+            <button class="small-btn" id="addLinkBtn">+ add</button>
+          </div>
+          <div class="bookmark-grid" id="quickLinks">
+            <div class="bmark" href="#"><div class="bicon">WK</div><span class="bname">Wikipedia</span></div>
+            <div class="bmark" href="#"><div class="bicon">GS</div><span class="bname">Scholar</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="label">Quick Notes</span>
+            <button class="small-btn" id="clearNotesBtn">clear</button>
+          </div>
+          <textarea class="notes-area" id="notesArea" placeholder="write something..."></textarea>
+        </div>
+
+      </div>
+      <div class="col">
+
+        <div class="card">
+          <div class="card-head">
+            <span class="label">Assignments</span>
+            <span style="font-size:10px;color:#6b7280" id="taskCount">0 / 0</span>
+          </div>
+          <div class="task-bar">
+            <input type="text" id="taskInput" placeholder="add assignment...">
+            <button class="add-btn" id="addTaskBtn">+</button>
+          </div>
+          <div class="task-stack" id="taskList"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="label">Weather</span>
+          </div>
+          <div class="w-input">
+            <input type="text" id="weatherCity" placeholder="city name...">
+            <button id="weatherGoBtn">Go</button>
+          </div>
+          <div id="weatherBox">type a city</div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="label">Dictionary</span>
+          </div>
+          <div class="d-input">
+            <input type="text" id="dictWord" placeholder="look up a word...">
+            <button id="dictGoBtn">Go</button>
+          </div>
+          <div id="dictResult"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card music-player">
+      <div class="card-head">
+        <span class="label">Focus Music</span>
+      </div>
+      <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+  </div>
+
+  <!-- ===== BROWSER VIEW ===== -->
+  <div class="view" id="internalPage">
+    <div class="browser-view">
+      <div class="browser-nav">
+        <button class="back-btn" id="backHomeBtn">&larr; Home</button>
+        <span class="page-title" id="internalTitle">New Tab</span>
+      </div>
+      <div class="browser-body" id="internalContent">
+        <p class="empty-msg">Search something to get started.</p>
+      </div>
+    </div>
+  </div>
+
 </div>
-<div class="browser-tabs" id="browserTabs">
-<button class="browser-tab active" data-tab="home"><span>Home</span></button>
-<button class="new-tab-btn" id="newTabBtn">+</button>
+
+<!-- BOOKMARK MODAL -->
+<div class="modal-overlay hidden" id="linkModal">
+  <div class="modal-box">
+    <button class="x-btn" id="closeLinkModal">&times;</button>
+    <h3>Add Bookmark</h3>
+    <input type="text" id="linkName" placeholder="Name">
+    <input type="url" id="linkUrl" placeholder="https://example.com">
+    <button class="save-btn" id="saveLinkBtn">Add</button>
+  </div>
 </div>
-<div class="page active-page" id="homePage">
-<section class="greeting-section">
-<p class="greeting-text" id="greetingText">Good morning.</p>
-<div class="date-display">
-<span class="date-day" id="dateDay">THU</span>
-<span class="date-num" id="dateNum">17</span>
-<span class="date-month" id="dateMonth">SEPTEMBER 2026</span>
+
+<!-- SETTINGS DRAWER -->
+<div class="settings-drawer" id="settingsPanel">
+  <div class="drawer-head">
+    <h3>Settings</h3>
+    <button class="close-x" id="closeSettingsBtn">&times;</button>
+  </div>
+  <label>Theme
+    <select id="themeSelect">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+    </select>
+  </label>
 </div>
-<p class="greeting-sub">Ready to get some work done?</p>
-</section>
-<section class="focus-section" id="focusSection">
-<div class="focus-step" id="focusStep1">
-<h2 class="focus-question">What are you working on?</h2>
-<input type="text" id="focusTopic" class="focus-input" placeholder="e.g. Math - Quadratic Equations">
-<button class="focus-next-btn" id="focusNext1">Next &#8594;</button>
-</div>
-<div class="focus-step hidden" id="focusStep2">
-<h2 class="focus-question">How long?</h2>
-<div class="focus-duration">
-<div class="duration-box"><input type="number" id="focusHours" value="1" min="0" max="12"><span>hours</span></div>
-<div class="duration-box"><input type="number" id="focusMins" value="30" min="0" max="59"><span>minutes</span></div>
-</div>
-<button class="focus-next-btn" id="focusNext2">Next &#8594;</button>
-</div>
-<div class="focus-step hidden" id="focusStep3">
-<h2 class="focus-question">Breaks?</h2>
-<div class="focus-breaks">
-<button class="break-btn active" id="breakYes">YES</button>
-<button class="break-btn" id="breakNo">NO</button>
-</div>
-<button class="focus-next-btn" id="focusNext3">Next &#8594;</button>
-</div>
-<div class="focus-step hidden" id="focusStep4">
-<h2 class="focus-question">Pick a reward</h2>
-<div class="focus-rewards">
-<div class="reward-card active" data-reward="youtube">
-<div class="reward-icon">&#9654;</div>
-<strong>Entertainment</strong>
-<span>YouTube</span>
-</div>
-<div class="reward-card" data-reward="gaming">
-<div class="reward-icon">&#127918;</div>
-<strong>Gaming</strong>
-<span>Roblox</span>
-</div>
-</div>
-<button class="start-focus-btn" id="startFocusBtn">START FOCUS</button>
-</div>
-<div class="focus-active hidden" id="focusActive">
-<div class="focus-topic-display" id="focusTopicDisplay"></div>
-<div class="focus-timer" id="focusTimer">00:00</div>
-<div class="focus-progress"><div class="focus-progress-bar" id="focusProgressBar"></div></div>
-<button class="stop-focus-btn" id="stopFocusBtn">STOP</button>
-</div>
-</section>
-<div class="main-grid">
-<div class="grid-left">
-<section class="links-section">
-<div class="section-heading"><p class="eyebrow">Bookmarks</p><button id="addLinkBtn">+</button></div>
-<div class="quick-links" id="quickLinks">
-<a class="link-card" href="#" target="_self"><div class="link-icon">WK</div><strong>Wikipedia</strong></a>
-<a class="link-card" href="#" target="_self"><div class="link-icon">GS</div><strong>Scholar</strong></a>
-</div>
-</section>
-<section class="notes-section">
-<div class="section-heading">
-<p class="eyebrow">Quick Notes</p>
-<button id="clearNotesBtn">Clear</button>
-</div>
-<textarea id="notesArea" placeholder="lecture notes, formulas, ideas..."></textarea>
-</section>
-</div>
-<div class="grid-right">
-<section class="productivity-section">
-<div class="section-heading">
-<p class="eyebrow">Assignments</p>
-<span id="taskCount">0 / 0</span>
-</div>
-<div class="task-input"><input type="text" id="taskInput" placeholder="Add assignment..."><button id="addTaskBtn">+</button></div>
-<div class="task-list" id="taskList"></div>
-</section>
-<section class="weather-section">
-<div class="section-heading"><p class="eyebrow">Weather</p></div>
-<div class="weather-input"><input type="text" id="weatherCity" placeholder="city..."><button id="weatherGoBtn">Go</button></div>
-<div id="weatherBox">type a city</div>
-</section>
-<section class="dict-section">
-<div class="section-heading"><p class="eyebrow">Dictionary</p></div>
-<div class="dict-input"><input type="text" id="dictWord" placeholder="lookup a word..."><button id="dictGoBtn">Go</button></div>
-<div id="dictResult"></div>
-</section>
-</div>
-</div>
-<section class="spotify-section">
-<div class="section-heading"><p class="eyebrow">Focus Music</p></div>
-<iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-</section>
-</div>
-<div class="page internal-page" id="internalPage">
-<div class="internal-header">
-<button id="backHomeBtn">&#8592; Home</button>
-<span id="internalTitle">New Tab</span>
-</div>
-<div class="internal-content" id="internalContent"><p>Select an internal tab to continue.</p></div>
-</div>
-<div class="modal hidden" id="linkModal">
-<div class="modal-content">
-<button class="modal-close" id="closeLinkModal">&times;</button>
-<h2>Add bookmark</h2>
-<input type="text" id="linkName" placeholder="Name">
-<input type="url" id="linkUrl" placeholder="https://example.com">
-<button id="saveLinkBtn">Add</button>
-</div>
-</div>
-<aside class="settings-panel hidden" id="settingsPanel">
-<div class="settings-header"><h2>Settings</h2><button id="closeSettingsBtn">&times;</button></div>
-<label for="themeSelect">Theme
-<select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option></select>
-</label>
-</aside>
-</main>
+
 <script type="module" src="/src/main.js"></script>
 </body>
 </html>
